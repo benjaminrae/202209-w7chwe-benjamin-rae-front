@@ -1,11 +1,11 @@
-import Button from "../Button/Button";
+import RegisterForm from "../RegisterForm/RegisterForm";
 import AppStyled from "./AppStyled";
 
 const App = (): JSX.Element => {
   return (
     <AppStyled className="app">
       Feisbuk
-      <Button text="Sign up" />
+      <RegisterForm />
     </AppStyled>
   );
 };
