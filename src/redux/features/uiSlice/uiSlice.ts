@@ -31,12 +31,19 @@ const uiSlice = createSlice({
       isError: action.payload.isError,
       modalText: action.payload.modalText,
     }),
+
+    hideModal: (currentUiState) => ({
+      ...currentUiState,
+      showModal: false,
+    }),
   },
 });
 
 export const {
   showLoading: showLoadingActionCreator,
   hideLoading: hideLoadingActionCreator,
+  showModal: showModalActionCreator,
+  hideModal: hideModalActionCreator,
 } = uiSlice.actions;
 
 export const uiReducer = uiSlice.reducer;
