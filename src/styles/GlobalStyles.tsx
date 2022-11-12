@@ -20,7 +20,7 @@ body {
 }
 
 html {
-  font-family: "Roboto Mono", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 img {
