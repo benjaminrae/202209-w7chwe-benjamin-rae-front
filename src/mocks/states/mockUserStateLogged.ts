@@ -3,7 +3,7 @@ import { UserState } from "../../redux/features/userSlice/types";
 
 const mockUserStateLogged: UserState = {
   ...getRandomUser(),
-  isLogged: false,
+  isLogged: true,
 };
 
 export default mockUserStateLogged;
