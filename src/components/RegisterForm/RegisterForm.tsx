@@ -1,6 +1,13 @@
 import Button from "../Button/Button";
 import RegisterFormStyled from "./RegisterFormStyled";
 
+export interface RegisterFormData {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 const RegisterForm = () => {
   return (
     <RegisterFormStyled className="register-form form">
