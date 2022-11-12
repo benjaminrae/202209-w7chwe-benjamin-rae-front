@@ -14,13 +14,13 @@ const userRoutes = {
 };
 
 const useUser = (): UseUserStructure => {
-  const dispatch = useAppDispatch();
-
   const registerUser = async (registerFormData: RegisterFormData) => {
-    const response = await axios.post(
-      `${apiUrl}${userRoutes.usersRoute}${userRoutes.registerRoute}`,
-      registerFormData
-    );
+    try {
+      await axios.post(
+        `${apiUrl}${userRoutes.usersRoute}${userRoutes.registerRoute}`,
+        registerFormData
+      );
+    } catch (error: unknown) {}
   };
 
   return {

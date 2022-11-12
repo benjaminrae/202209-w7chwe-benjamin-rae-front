@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import Button from "../Button/Button";
 import RegisterFormStyled from "./RegisterFormStyled";
 
@@ -8,7 +9,25 @@ export interface RegisterFormData {
   confirmPassword: string;
 }
 
+const initialRegisterFormData: RegisterFormData = {
+  username: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
+
 const RegisterForm = () => {
+  const [registerFormData, setRegisterFormData] = useState(
+    initialRegisterFormData
+  );
+
+  const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRegisterFormData((previousFormData) => ({
+      ...previousFormData,
+      [event.target.id]: event.target.value,
+    }));
+  };
+
   return (
     <RegisterFormStyled className="register-form form">
       <h2 className="register-form__title form__title">Sign up for Feisbuk</h2>
@@ -21,6 +40,9 @@ const RegisterForm = () => {
           id="username"
           className="register-form__input form__input"
           min="5"
+          onChange={handleFormChange}
+          value={registerFormData.username}
+          autoComplete="off"
         />
       </div>
       <div className="register-form__form-group form__group">
@@ -31,6 +53,9 @@ const RegisterForm = () => {
           type="email"
           id="email"
           className="register-form__input form__input"
+          onChange={handleFormChange}
+          value={registerFormData.email}
+          autoComplete="off"
         />
       </div>
       <div className="register-form__form-group form__group">
@@ -42,6 +67,9 @@ const RegisterForm = () => {
           id="password"
           className="register-form__input form__input"
           min="8"
+          onChange={handleFormChange}
+          value={registerFormData.password}
+          autoComplete="off"
         />
       </div>
       <div className="register-form__form-group form__group">
@@ -56,6 +84,9 @@ const RegisterForm = () => {
           id="confirmPassword"
           className="register-form__input form__input"
           min="8"
+          onChange={handleFormChange}
+          value={registerFormData.confirmPassword}
+          autoComplete="off"
         />
       </div>
 
