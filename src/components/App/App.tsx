@@ -1,6 +1,5 @@
 import { useAppSelector } from "../../redux/hooks";
 import Loading from "../Loading/Loading";
-import Modal from "../Modal/Modal";
 import RegisterForm from "../RegisterForm/RegisterForm";
 import AppStyled from "./AppStyled";
 
@@ -12,7 +11,6 @@ const App = (): JSX.Element => {
       Feisbuk
       <RegisterForm />
       {isLoading && <Loading />}
-      <Modal text="Something went wrong" isError={true} />
     </AppStyled>
   );
 };

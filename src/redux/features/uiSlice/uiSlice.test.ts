@@ -23,6 +23,7 @@ describe("Given a uiReducer", () => {
     describe("and it receives the initial ui state and a show loading action", () => {
       test("Then it should return a copy of the initial state with isLoading true", () => {
         const expectedUiState = {
+          ...mockUiState,
           isLoading: true,
         };
 
