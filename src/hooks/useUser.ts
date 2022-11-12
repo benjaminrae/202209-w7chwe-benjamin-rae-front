@@ -1,17 +1,31 @@
 import axios, { AxiosError } from "axios";
+import decodeToken from "jwt-decode";
 import { RegisterFormData } from "../components/RegisterForm/RegisterForm";
 import {
   hideLoadingActionCreator,
   showLoadingActionCreator,
   showModalActionCreator,
 } from "../redux/features/uiSlice/uiSlice";
+import { User } from "../redux/features/userSlice/types";
+import { loginUserActionCreator } from "../redux/features/userSlice/userSlice";
 import { useAppDispatch } from "../redux/hooks";
+import { CustomTokenPayload } from "./types";
 
 interface AxiosErrorResponseBody {
   error: string;
 }
 interface UseUserStructure {
   registerUser: (registerFormData: RegisterFormData) => Promise<void>;
+  loginUser: (loginFormData: LoginFormData) => Promise<void>;
+}
+
+interface LoginFormData {
+  username: string;
+  password: string;
+}
+
+interface LoginUserResponse {
+  token: string;
 }
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -19,6 +33,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 const userRoutes = {
   usersRoute: "/users",
   registerRoute: "/register",
+  loginRoute: "/login",
 };
 
 const useUser = (): UseUserStructure => {
@@ -54,8 +69,46 @@ const useUser = (): UseUserStructure => {
     }
   };
 
+  const loginUser = async (loginFormData: LoginFormData) => {
+    dispatch(showLoadingActionCreator());
+    try {
+      const response = await axios.post<LoginUserResponse>(
+        `${apiUrl}${userRoutes.usersRoute}${userRoutes.loginRoute}`,
+        loginFormData
+      );
+
+      const { token } = response.data;
+
+      const tokenPayload: CustomTokenPayload = decodeToken(token);
+
+      const { username, id } = tokenPayload;
+
+      const loggedUser: User = {
+        username,
+        id,
+        token,
+      };
+
+      dispatch(loginUserActionCreator(loggedUser));
+      dispatch(hideLoadingActionCreator());
+    } catch (error: unknown) {
+      dispatch(hideLoadingActionCreator());
+
+      if (error instanceof AxiosError) {
+        dispatch(
+          showModalActionCreator({
+            isError: true,
+            modalText: (error as AxiosError<AxiosErrorResponseBody>).response
+              ?.data.error!,
+          })
+        );
+      }
+    }
+  };
+
   return {
     registerUser,
+    loginUser,
   };
 };
 
