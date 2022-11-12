@@ -33,6 +33,12 @@ const useUser = (): UseUserStructure => {
       );
 
       dispatch(hideLoadingActionCreator());
+      dispatch(
+        showModalActionCreator({
+          isError: false,
+          modalText: "You're registered! Log in to make new friends",
+        })
+      );
     } catch (error: unknown) {
       dispatch(hideLoadingActionCreator());
 

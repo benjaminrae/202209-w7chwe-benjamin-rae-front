@@ -14,7 +14,7 @@ const App = (): JSX.Element => {
       Feisbuk
       <RegisterForm />
       {isLoading && <Loading />}
-      {showModal && <Modal isError text={modalText} />}
+      {showModal && <Modal isError={isError} text={modalText} />}
     </AppStyled>
   );
 };
