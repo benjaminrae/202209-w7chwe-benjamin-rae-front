@@ -116,7 +116,7 @@ const RegisterForm = () => {
       <Button text="Sign up" />
 
       {error && (
-        <div className="register-form__error form__error">
+        <div className="register-form__error form__error" data-test-id="error">
           There was an error: {error}
         </div>
       )}
