@@ -1,5 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import renderWithProviders from "../../testUtils/renderWithProviders";
 import RegisterForm from "./RegisterForm";
 
 describe("Given the component RegisterForm", () => {
@@ -16,7 +17,7 @@ describe("Given the component RegisterForm", () => {
         name: "Sign up for Feisbuk",
       };
 
-      render(<RegisterForm />);
+      renderWithProviders(<RegisterForm />);
 
       const renderedHeading = screen.queryByRole("heading", formHeading);
       const usernameInput = screen.queryByRole("textbox", {
@@ -49,7 +50,7 @@ describe("Given the component RegisterForm", () => {
       };
       const expectedErrorText = /"email" is not allowed to be empty/i;
 
-      render(<RegisterForm />);
+      renderWithProviders(<RegisterForm />);
 
       const usernameInput = screen.queryByRole("textbox", {
         name: usernameLabel,

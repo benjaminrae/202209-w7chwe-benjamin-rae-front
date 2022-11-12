@@ -26,8 +26,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --passWithNoTests",
-    "test:coverage": "react-scripts test --coverage --watchAll=false --passWithNoTests",
+    "test": "react-scripts test ",
+    "test:coverage": "react-scripts test --coverage --watchAll=false ",
     "eject": "react-scripts eject",
     "prepare": "husky install"
   },
@@ -52,7 +52,8 @@
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
     "@types/styled-components": "^5.1.26",
-    "husky": "^8.0.0"
+    "husky": "^8.0.0",
+    "msw": "^0.48.1"
   },
   "jest": {
     "collectCoverageFrom": [
