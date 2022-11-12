@@ -58,6 +58,3 @@ describe("Given a Modal component", () => {
     });
   });
 });
-function closeModalActionCreator(): any {
-  throw new Error("Function not implemented.");
-}
