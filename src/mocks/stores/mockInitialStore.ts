@@ -5,7 +5,7 @@ import { store } from "../../redux/store";
 import mockUiState from "../states/mockUiState";
 import mockUserStateNotLogged from "../states/mockUserStateNotLogged";
 
-const mockStore: typeof store = configureStore({
+const mockInitialStore: typeof store = configureStore({
   reducer: {
     ui: uiReducer,
     user: userReducer,
@@ -16,4 +16,4 @@ const mockStore: typeof store = configureStore({
   },
 });
 
-export default mockStore;
+export default mockInitialStore;

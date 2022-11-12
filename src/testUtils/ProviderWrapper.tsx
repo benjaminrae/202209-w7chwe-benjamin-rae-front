@@ -1,11 +1,11 @@
 import { Provider } from "react-redux";
-import mockStore from "../mocks/stores/mockStore";
+import mockInitialStore from "../mocks/stores/mockInitialStore";
 
 interface ProviderWrapperProps {
   children: JSX.Element | JSX.Element[];
 }
 const ProviderWrapper = ({ children }: ProviderWrapperProps) => {
-  return <Provider store={mockStore}>{children}</Provider>;
+  return <Provider store={mockInitialStore}>{children}</Provider>;
 };
 
 export default ProviderWrapper;
