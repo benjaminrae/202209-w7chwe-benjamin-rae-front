@@ -1,6 +1,5 @@
 import axios from "axios";
 import { RegisterFormData } from "../components/RegisterForm/RegisterForm";
-import { useAppDispatch } from "../redux/hooks";
 
 interface UseUserStructure {
   registerUser: (registerFormData: RegisterFormData) => Promise<void>;
