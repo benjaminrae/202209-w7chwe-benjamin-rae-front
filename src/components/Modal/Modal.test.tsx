@@ -1,4 +1,5 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import renderWithProviders from "../../testUtils/renderWithProviders";
 import Modal from "./Modal";
 
 describe("Given a Modal component", () => {
@@ -8,7 +9,7 @@ describe("Given a Modal component", () => {
       const expectedModalTitle = "Oops!";
       const buttonText = "Close";
 
-      render(<Modal isError={true} text={modalText} />);
+      renderWithProviders(<Modal isError={true} text={modalText} />);
 
       const title = screen.queryByText(expectedModalTitle);
       const renderedModalText = screen.queryByText(modalText);
@@ -25,7 +26,7 @@ describe("Given a Modal component", () => {
       const modalText = "You updated your profile";
       const expectedModalTitle = "Success!";
 
-      render(<Modal isError={false} text={modalText} />);
+      renderWithProviders(<Modal isError={false} text={modalText} />);
 
       const title = screen.queryByText(expectedModalTitle);
       const renderedModalText = screen.queryByText(modalText);
