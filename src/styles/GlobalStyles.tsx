@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import colors from "./colors";
 
 const GlobalStyles = createGlobalStyle`
   *,
@@ -59,8 +60,27 @@ a {
   color: inherit;
   cursor: pointer;
 }
-  
 
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form__title {
+
+}
+
+.form__group {
+  display: flex;
+  flex-direction: column
+}
+
+.form__input {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 2px solid ${colors.navyBlue};
+}
 `;
 
 export default GlobalStyles;
