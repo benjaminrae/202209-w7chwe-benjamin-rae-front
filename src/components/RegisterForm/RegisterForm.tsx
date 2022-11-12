@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { ValidationError } from "joi";
+import registerFormSchema from "../../schemas/registerFormSchema";
 import Button from "../Button/Button";
 import RegisterFormStyled from "./RegisterFormStyled";
-
+import useUser from "../../hooks/useUser";
 export interface RegisterFormData {
   username: string;
   email: string;
@@ -20,6 +22,9 @@ const RegisterForm = () => {
   const [registerFormData, setRegisterFormData] = useState(
     initialRegisterFormData
   );
+  const [error, setError] = useState("");
+
+  const { registerUser } = useUser();
 
   const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRegisterFormData((previousFormData) => ({
@@ -28,8 +33,26 @@ const RegisterForm = () => {
     }));
   };
 
+  const handleFormSubmit = async (event: React.SyntheticEvent) => {
+    event.preventDefault();
+    try {
+      await registerFormSchema.validateAsync(registerFormData, {
+        abortEarly: false,
+      });
+      await registerUser(registerFormData);
+      setError("");
+    } catch (error: unknown) {
+      if (error instanceof ValidationError) {
+        setError(error.details.map((error) => error.message).join("\n"));
+      }
+    }
+  };
+
   return (
-    <RegisterFormStyled className="register-form form">
+    <RegisterFormStyled
+      className="register-form form"
+      onSubmit={handleFormSubmit}
+    >
       <h2 className="register-form__title form__title">Sign up for Feisbuk</h2>
       <div className="register-form__form-group form__group">
         <label htmlFor="username" className="register-form__label form__label">
@@ -91,6 +114,12 @@ const RegisterForm = () => {
       </div>
 
       <Button text="Sign up" />
+
+      {error && (
+        <div className="register-form__error form__error">
+          There was an error: {error}
+        </div>
+      )}
     </RegisterFormStyled>
   );
 };
