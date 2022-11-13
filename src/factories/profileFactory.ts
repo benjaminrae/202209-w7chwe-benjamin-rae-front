@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { Factory } from "fishery";
-import { ProfileStructure } from "../redux/features/userSlice/types";
+import { ProfileStructure } from "../redux/features/profilesSlice/types";
 
 const profileFactory = Factory.define<ProfileStructure>(() => ({
   username: faker.internet.userName(),
