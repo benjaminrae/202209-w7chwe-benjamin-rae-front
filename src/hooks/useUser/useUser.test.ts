@@ -1,5 +1,6 @@
 import { renderHook } from "@testing-library/react";
 import { RegisterFormData } from "../../components/RegisterForm/RegisterForm";
+import mockLocalStorage from "../../mocks/localStorage/mockLocalStorage";
 import mockInitialStore from "../../mocks/stores/mockInitialStore";
 import { ShowModalActionPayload } from "../../redux/features/uiSlice/types";
 import {
@@ -13,14 +14,23 @@ import ProviderWrapper from "../../testUtils/ProviderWrapper";
 import { CustomTokenPayload } from "./types";
 import useUser, { LoginFormData } from "./useUser";
 
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
 jest.mock("jwt-decode", () => {
   return () => ({ id: "testid", username: "admin" } as CustomTokenPayload);
 });
 
 const dispatchSpy = jest.spyOn(mockInitialStore, "dispatch");
 
-jest.spyOn(Object.getPrototypeOf(window.localStorage), "setItem");
-Object.setPrototypeOf(window.localStorage.setItem, jest.fn());
+Object.defineProperty(window, "localStorage", {
+  value: mockLocalStorage,
+});
+
+afterAll(() => {
+  mockLocalStorage.clear();
+});
 
 describe("Given the custom hook useUser", () => {
   describe("When it's method registerUser is invoked with username 'admin', email 'admin@feisbuk.com' and password 'admin123'", () => {
@@ -169,10 +179,7 @@ describe("Given the custom hook useUser", () => {
         3,
         loginUserActionCreator(actionPayload)
       );
-      expect(window.localStorage.setItem).toHaveBeenCalledWith(
-        "token",
-        actionPayload.token
-      );
+      expect(mockLocalStorage.getItem("token")).toBe(actionPayload.token);
     });
   });
 });
