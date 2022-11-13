@@ -22,6 +22,8 @@ const ProfileCardStyled = styled.li`
     &__image {
       object-fit: cover;
       object-position: top;
+      border-radius: 0.5rem;
+      aspect-ratio: 1;
     }
   }
   .button {
