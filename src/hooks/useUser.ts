@@ -19,7 +19,7 @@ interface UseUserStructure {
   loginUser: (loginFormData: LoginFormData) => Promise<void>;
 }
 
-interface LoginFormData {
+export interface LoginFormData {
   username: string;
   password: string;
 }
@@ -89,8 +89,9 @@ const useUser = (): UseUserStructure => {
         token,
       };
 
-      dispatch(loginUserActionCreator(loggedUser));
       dispatch(hideLoadingActionCreator());
+      dispatch(loginUserActionCreator(loggedUser));
+      window.localStorage.setItem("token", token);
     } catch (error: unknown) {
       dispatch(hideLoadingActionCreator());
 
