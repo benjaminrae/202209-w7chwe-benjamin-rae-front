@@ -81,6 +81,10 @@ a {
   border-radius: 0.5rem;
   border: 2px solid ${colors.navyBlue};
 }
+
+.form__link {
+  font-weight: 800;
+}
 `;
 
 export default GlobalStyles;

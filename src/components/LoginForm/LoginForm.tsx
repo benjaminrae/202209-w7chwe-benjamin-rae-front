@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { LoginFormData } from "../../hooks/useUser/useUser";
 import Button from "../Button/Button";
 import LoginFormStyled from "./LoginFormStyled";
@@ -10,6 +11,7 @@ const initialFormData: LoginFormData = {
 
 const LoginForm = () => {
   const [loginFormData, setLoginFormData] = useState(initialFormData);
+  const [error, setError] = useState("");
 
   const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLoginFormData((previousFormData) => ({
@@ -52,6 +54,13 @@ const LoginForm = () => {
       </div>
 
       <Button text="Login" />
+
+      <span>
+        Don't have an account?{" "}
+        <Link className="form__link" to="/register">
+          Register here
+        </Link>
+      </span>
     </LoginFormStyled>
   );
 };
