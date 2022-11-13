@@ -13,11 +13,8 @@ import {
 } from "../../redux/features/userSlice/userSlice";
 import { useAppDispatch } from "../../redux/hooks";
 import useToken from "../useToken/useToken";
-import { CustomTokenPayload } from "./types";
+import { AxiosErrorResponseBody, CustomTokenPayload } from "./types";
 
-interface AxiosErrorResponseBody {
-  error: string;
-}
 interface UseUserStructure {
   registerUser: (registerFormData: RegisterFormData) => Promise<void>;
   loginUser: (loginFormData: LoginFormData) => Promise<void>;
