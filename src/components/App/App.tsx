@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router";
+import HomePage from "../../pages/HomePage/HomePage";
 import { useAppSelector } from "../../redux/hooks";
 import Header from "../Header/Header";
 import Loading from "../Loading/Loading";
@@ -18,7 +19,7 @@ const App = (): JSX.Element => {
       <Header />
       <Suspense fallback={<Loading />} />
       <Routes>
-        <Route path="/" element={<Navigate to="/register" />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/login" element={<LoginForm />} />
       </Routes>
