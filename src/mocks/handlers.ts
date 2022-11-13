@@ -1,6 +1,7 @@
 import { rest } from "msw";
 import { RegisterFormData } from "../components/RegisterForm/RegisterForm";
 import { LoginFormData } from "../hooks/useUser/useUser";
+import mockLoadProfilesResponse from "./responses/mockLoadProfilesResponse";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -29,6 +30,17 @@ const handlers = [
     }
 
     return res(ctx.status(200), ctx.json({ token: "testtoken" }));
+  }),
+
+  rest.get(`${apiUrl}/profiles`, (req, res, ctx) => {
+    return res.once(
+      ctx.status(404),
+      ctx.json({ error: "There was an error on the server" })
+    );
+  }),
+
+  rest.get(`${apiUrl}/profiles`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(mockLoadProfilesResponse));
   }),
 ];
 
