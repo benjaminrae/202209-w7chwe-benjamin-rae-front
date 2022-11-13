@@ -6,7 +6,11 @@ interface ButtonProps {
 }
 
 const Button = ({ text, action }: ButtonProps): JSX.Element => {
-  return <ButtonStyled onClick={action}>{text}</ButtonStyled>;
+  return (
+    <ButtonStyled className="button" onClick={action}>
+      {text}
+    </ButtonStyled>
+  );
 };
 
 export default Button;
