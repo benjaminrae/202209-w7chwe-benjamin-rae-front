@@ -1,6 +1,5 @@
 import { rest } from "msw";
 import { RegisterFormData } from "../components/RegisterForm/RegisterForm";
-import { getRandomProfileList } from "../factories/profileFactory";
 import { LoginFormData } from "../hooks/useUser/useUser";
 import mockLoadProfilesResponse from "./responses/mockLoadProfilesResponse";
 
