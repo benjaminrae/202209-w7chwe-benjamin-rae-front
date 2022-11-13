@@ -4,6 +4,7 @@ import registerFormSchema from "../../schemas/registerFormSchema";
 import Button from "../Button/Button";
 import RegisterFormStyled from "./RegisterFormStyled";
 import useUser from "../../hooks/useUser/useUser";
+import { Link } from "react-router-dom";
 export interface RegisterFormData {
   username: string;
   email: string;
@@ -114,6 +115,13 @@ const RegisterForm = () => {
       </div>
 
       <Button text="Sign up" />
+
+      <span>
+        Already have an account?{" "}
+        <Link className="form__link" to="/login">
+          Login here
+        </Link>
+      </span>
 
       {error && (
         <div className="register-form__error form__error" data-test-id="error">

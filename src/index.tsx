@@ -2,6 +2,7 @@ import React from "react";
 import { ThemeProvider } from "styled-components";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 import { store } from "./redux/store";
 import "@fontsource/poppins";
 import App from "./components/App/App";
@@ -13,11 +14,13 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <ThemeProvider theme={mainTheme}>
-        <GlobalStyles />
-        <App />
-      </ThemeProvider>
-    </Provider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <ThemeProvider theme={mainTheme}>
+          <GlobalStyles />
+          <App />
+        </ThemeProvider>
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>
 );
