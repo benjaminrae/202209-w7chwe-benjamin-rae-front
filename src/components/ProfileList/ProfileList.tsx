@@ -1,4 +1,3 @@
-import { getRandomProfileList } from "../../factories/profileFactory";
 import { useAppSelector } from "../../redux/hooks";
 import ProfileCard from "../ProfileCard/ProfileCard";
 import ProfileListStyled from "./ProifleListStyled";
