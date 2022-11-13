@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router";
 import { useAppSelector } from "../../redux/hooks";
+import Header from "../Header/Header";
 import Loading from "../Loading/Loading";
 import LoginForm from "../LoginForm/LoginForm";
 import Modal from "../Modal/Modal";
@@ -14,6 +15,7 @@ const App = (): JSX.Element => {
 
   return (
     <AppStyled className="app">
+      <Header />
       <Suspense fallback={<Loading />} />
       <Routes>
         <Route path="/" element={<Navigate to="/register" />} />
