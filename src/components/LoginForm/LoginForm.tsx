@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { LoginFormData } from "../../hooks/useUser/useUser";
+import { ValidationError } from "joi";
+import useUser, { LoginFormData } from "../../hooks/useUser/useUser";
+import loginFormSchema from "../../schemas/loginFormSchema";
 import Button from "../Button/Button";
 import LoginFormStyled from "./LoginFormStyled";
 
@@ -13,6 +15,8 @@ const LoginForm = () => {
   const [loginFormData, setLoginFormData] = useState(initialFormData);
   const [error, setError] = useState("");
 
+  const { loginUser } = useUser();
+
   const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLoginFormData((previousFormData) => ({
       ...previousFormData,
@@ -20,8 +24,23 @@ const LoginForm = () => {
     }));
   };
 
+  const handleFormSubmit = async (event: React.SyntheticEvent) => {
+    event.preventDefault();
+    try {
+      await loginFormSchema.validateAsync(loginFormData, {
+        abortEarly: false,
+      });
+      await loginUser(loginFormData);
+      setError("");
+    } catch (error: unknown) {
+      if (error instanceof ValidationError) {
+        setError(error.details.map((error) => error.message).join("\n"));
+      }
+    }
+  };
+
   return (
-    <LoginFormStyled className="login-form form">
+    <LoginFormStyled className="login-form form" onSubmit={handleFormSubmit}>
       <h2 className="login-form__title form__title">Log in to Feisbuk</h2>
       <div className="login-form__form-group form__group">
         <label htmlFor="username" className="login-form__label form__label">
@@ -61,6 +80,12 @@ const LoginForm = () => {
           Register here
         </Link>
       </span>
+
+      {error && (
+        <div className="register-form__error form__error" data-test-id="error">
+          There was an error: {error}
+        </div>
+      )}
     </LoginFormStyled>
   );
 };
