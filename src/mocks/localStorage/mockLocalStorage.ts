@@ -10,6 +10,10 @@ const mockLocalStorage = (() => {
       store[key] = value;
     },
 
+    removeItem(key: string) {
+      delete store[key];
+    },
+
     clear() {
       store = {} as Storage;
     },

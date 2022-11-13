@@ -1,4 +1,5 @@
 import { renderHook } from "@testing-library/react";
+import mockLocalStorage from "../../mocks/localStorage/mockLocalStorage";
 import mockInitialStore from "../../mocks/stores/mockInitialStore";
 import { User } from "../../redux/features/userSlice/types";
 import { loginUserActionCreator } from "../../redux/features/userSlice/userSlice";
@@ -25,6 +26,10 @@ Object.defineProperty(window, "localStorage", {
   value: mockLocalStorage,
 });
 
+beforeAll(() => {
+  mockLocalStorage.setItem("token", "testtoken");
+});
+
 afterAll(() => {
   mockLocalStorage.clear();
 });
@@ -32,7 +37,7 @@ afterAll(() => {
 const dispatchSpy = jest.spyOn(mockInitialStore, "dispatch");
 
 describe("Given a useToken custom hook", () => {
-  describe("When its method getToken is invoked and there is a token in local storage", () => {
+  describe("When its method getToken is invoked and there is the token 'testtoken' in local storage", () => {
     test("Then it should call dispatch with a login user action", () => {
       const {
         result: {
@@ -47,6 +52,22 @@ describe("Given a useToken custom hook", () => {
       expect(dispatchSpy).toHaveBeenCalledWith(
         loginUserActionCreator(mockUser)
       );
+    });
+  });
+
+  describe("When its method removeToken is invoked and there is the token 'testtoken' in local storage", () => {
+    test("Then the token should be removed from local storage", () => {
+      const {
+        result: {
+          current: { removeToken },
+        },
+      } = renderHook(() => useToken(), {
+        wrapper: ProviderWrapper,
+      });
+
+      removeToken();
+
+      expect(mockLocalStorage.getItem("token")).toBe(undefined);
     });
   });
 });
