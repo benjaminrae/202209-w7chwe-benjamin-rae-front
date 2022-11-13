@@ -10,6 +10,7 @@ import { ThemeProvider } from "styled-components";
 import mainTheme from "../styles/mainTheme";
 import GlobalStyles from "../styles/GlobalStyles";
 import { userReducer } from "../redux/features/userSlice/userSlice";
+import { BrowserRouter } from "react-router-dom";
 
 interface ExtendedRenderOptions extends RenderOptions {
   preloadedState?: PreloadedState<RootState>;
@@ -29,12 +30,14 @@ const renderWithProviders = (
 ) => {
   const Wrapper = ({ children }: PropsWithChildren<{}>): JSX.Element => {
     return (
-      <Provider store={store}>
-        <ThemeProvider theme={mainTheme}>
-          <GlobalStyles />
-          {children}
-        </ThemeProvider>
-      </Provider>
+      <BrowserRouter>
+        <Provider store={store}>
+          <ThemeProvider theme={mainTheme}>
+            <GlobalStyles />
+            {children}
+          </ThemeProvider>
+        </Provider>
+      </BrowserRouter>
     );
   };
   return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
