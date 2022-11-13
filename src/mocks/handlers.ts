@@ -1,4 +1,3 @@
-import { AxiosError } from "axios";
 import { rest } from "msw";
 import { RegisterFormData } from "../components/RegisterForm/RegisterForm";
 import { LoginFormData } from "../hooks/useUser/useUser";
