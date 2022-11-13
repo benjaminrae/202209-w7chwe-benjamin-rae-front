@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import decodeToken from "jwt-decode";
+import { useNavigate } from "react-router";
 import { RegisterFormData } from "../../components/RegisterForm/RegisterForm";
 import {
   hideLoadingActionCreator,
@@ -41,6 +42,7 @@ const userRoutes = {
 const useUser = (): UseUserStructure => {
   const dispatch = useAppDispatch();
   const { removeToken } = useToken();
+  const navigate = useNavigate();
 
   const registerUser = async (registerFormData: RegisterFormData) => {
     dispatch(showLoadingActionCreator());
@@ -57,6 +59,7 @@ const useUser = (): UseUserStructure => {
           modalText: "You're registered! Log in to make new friends",
         })
       );
+      navigate("/login");
     } catch (error: unknown) {
       dispatch(hideLoadingActionCreator());
 
@@ -94,6 +97,7 @@ const useUser = (): UseUserStructure => {
 
       dispatch(hideLoadingActionCreator());
       dispatch(loginUserActionCreator(loggedUser));
+      navigate("/profiles");
       window.localStorage.setItem("token", token);
     } catch (error: unknown) {
       dispatch(hideLoadingActionCreator());

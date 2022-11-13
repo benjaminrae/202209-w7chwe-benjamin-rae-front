@@ -3,14 +3,14 @@ import mockProfilesState from "../../mocks/states/mockProfilesState";
 import mockUiState from "../../mocks/states/mockUiState";
 import mockUserStateLogged from "../../mocks/states/mockUserStateLogged";
 import renderWithProviders from "../../testUtils/renderWithProviders";
-import ProfileList from "./ProfileList";
+import ProfilesPage from "./ProfilesPage";
 
-describe("Given a ProfileList", () => {
-  describe("When it is rendered and there are 10 profiles in the store", () => {
-    test("Then it should show a list of 10 profiles and the text '10 profiles found'", () => {
+describe("Given a ProfilesPage", () => {
+  describe("When it is rendered", () => {
+    test("Then it should show a list of profiles", () => {
       const expectedText = "10 profiles found";
 
-      renderWithProviders(<ProfileList />, {
+      renderWithProviders(<ProfilesPage />, {
         preloadedState: {
           profiles: mockProfilesState,
           ui: mockUiState,

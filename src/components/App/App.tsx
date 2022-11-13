@@ -1,7 +1,9 @@
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { Route, Routes } from "react-router";
+import useToken from "../../hooks/useToken/useToken";
 import HomePage from "../../pages/HomePage/HomePage";
 import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
+import ProfilesPage from "../../pages/ProfilesPage/ProfilesPage";
 import { useAppSelector } from "../../redux/hooks";
 import Header from "../Header/Header";
 import Loading from "../Loading/Loading";
@@ -16,6 +18,12 @@ const App = (): JSX.Element => {
     (state) => state.ui
   );
 
+  const { getToken } = useToken();
+
+  useEffect(() => {
+    getToken();
+  }, [getToken]);
+
   return (
     <AppStyled className="app">
       <Header />
@@ -24,6 +32,7 @@ const App = (): JSX.Element => {
         <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/login" element={<LoginForm />} />
+        <Route path="/profiles" element={<ProfilesPage />} />
         <Route path="/test" element={<ProfileList />} />
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
