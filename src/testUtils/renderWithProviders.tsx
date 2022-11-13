@@ -11,6 +11,7 @@ import mainTheme from "../styles/mainTheme";
 import GlobalStyles from "../styles/GlobalStyles";
 import { userReducer } from "../redux/features/userSlice/userSlice";
 import { BrowserRouter } from "react-router-dom";
+import { profilesReducer } from "../redux/features/profilesSlice/profilesSlice";
 
 interface ExtendedRenderOptions extends RenderOptions {
   preloadedState?: PreloadedState<RootState>;
@@ -22,7 +23,7 @@ const renderWithProviders = (
   {
     preloadedState,
     store = configureStore({
-      reducer: { ui: uiReducer, user: userReducer },
+      reducer: { ui: uiReducer, user: userReducer, profiles: profilesReducer },
       preloadedState,
     }),
     ...renderOptions
