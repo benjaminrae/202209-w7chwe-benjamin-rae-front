@@ -1,6 +1,5 @@
 import { faker } from "@faker-js/faker";
 import { Factory } from "fishery";
-import { flattenHeadersList } from "headers-polyfill";
 import { ProfileStructure } from "../redux/features/userSlice/types";
 
 const profileFactory = Factory.define<ProfileStructure>(() => ({
