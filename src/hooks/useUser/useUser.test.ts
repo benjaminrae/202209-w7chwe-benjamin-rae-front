@@ -9,7 +9,10 @@ import {
   showModalActionCreator,
 } from "../../redux/features/uiSlice/uiSlice";
 import { User } from "../../redux/features/userSlice/types";
-import { loginUserActionCreator } from "../../redux/features/userSlice/userSlice";
+import {
+  loginUserActionCreator,
+  logoutUserActionCreator,
+} from "../../redux/features/userSlice/userSlice";
 import ProviderWrapper from "../../testUtils/ProviderWrapper";
 import { CustomTokenPayload } from "./types";
 import useUser, { LoginFormData } from "./useUser";
@@ -20,6 +23,14 @@ beforeEach(() => {
 
 jest.mock("jwt-decode", () => {
   return () => ({ id: "testid", username: "admin" } as CustomTokenPayload);
+});
+
+const mockRemoveToken = jest.fn();
+
+jest.mock("../useToken/useToken", () => {
+  return () => ({
+    removeToken: mockRemoveToken,
+  });
 });
 
 const dispatchSpy = jest.spyOn(mockInitialStore, "dispatch");
@@ -180,6 +191,23 @@ describe("Given the custom hook useUser", () => {
         loginUserActionCreator(actionPayload)
       );
       expect(mockLocalStorage.getItem("token")).toBe(actionPayload.token);
+    });
+  });
+
+  describe("When its method logoutUser is invoked", () => {
+    test("Then removeToken should be called and dispatch should be invoked with a logout user action", () => {
+      const {
+        result: {
+          current: { logoutUser },
+        },
+      } = renderHook(() => useUser(), {
+        wrapper: ProviderWrapper,
+      });
+
+      logoutUser();
+
+      expect(mockRemoveToken).toHaveBeenCalled();
+      expect(dispatchSpy).toHaveBeenCalledWith(logoutUserActionCreator());
     });
   });
 });

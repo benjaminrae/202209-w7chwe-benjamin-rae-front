@@ -7,8 +7,12 @@ import {
   showModalActionCreator,
 } from "../../redux/features/uiSlice/uiSlice";
 import { User } from "../../redux/features/userSlice/types";
-import { loginUserActionCreator } from "../../redux/features/userSlice/userSlice";
+import {
+  loginUserActionCreator,
+  logoutUserActionCreator,
+} from "../../redux/features/userSlice/userSlice";
 import { useAppDispatch } from "../../redux/hooks";
+import useToken from "../useToken/useToken";
 import { CustomTokenPayload } from "./types";
 
 interface AxiosErrorResponseBody {
@@ -17,6 +21,7 @@ interface AxiosErrorResponseBody {
 interface UseUserStructure {
   registerUser: (registerFormData: RegisterFormData) => Promise<void>;
   loginUser: (loginFormData: LoginFormData) => Promise<void>;
+  logoutUser: () => void;
 }
 
 export interface LoginFormData {
@@ -38,6 +43,7 @@ const userRoutes = {
 
 const useUser = (): UseUserStructure => {
   const dispatch = useAppDispatch();
+  const { removeToken } = useToken();
 
   const registerUser = async (registerFormData: RegisterFormData) => {
     dispatch(showLoadingActionCreator());
@@ -107,9 +113,16 @@ const useUser = (): UseUserStructure => {
     }
   };
 
+  const logoutUser = () => {
+    removeToken();
+
+    dispatch(logoutUserActionCreator());
+  };
+
   return {
     registerUser,
     loginUser,
+    logoutUser,
   };
 };
 
