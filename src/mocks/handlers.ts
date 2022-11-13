@@ -1,6 +1,6 @@
 import { rest } from "msw";
 import { RegisterFormData } from "../components/RegisterForm/RegisterForm";
-import { LoginFormData } from "../hooks/useUser";
+import { LoginFormData } from "../hooks/useUser/useUser";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
