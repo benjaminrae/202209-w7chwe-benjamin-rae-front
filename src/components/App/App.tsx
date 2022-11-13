@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { Route, Routes } from "react-router";
 import HomePage from "../../pages/HomePage/HomePage";
+import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
 import { useAppSelector } from "../../redux/hooks";
 import Header from "../Header/Header";
 import Loading from "../Loading/Loading";
@@ -22,6 +23,7 @@ const App = (): JSX.Element => {
         <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/login" element={<LoginForm />} />
+        <Route path="/*" element={<NotFoundPage />} />
       </Routes>
       {isLoading && <Loading />}
       {showModal && <Modal isError={isError} text={modalText} />}
