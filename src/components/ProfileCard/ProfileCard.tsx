@@ -1,4 +1,4 @@
-import { ProfileStructure } from "../../redux/features/userSlice/types";
+import { ProfileStructure } from "../../redux/features/profilesSlice/types";
 import getAge from "../../utils/getAge";
 import Button from "../Button/Button";
 import ProfileCardStyled from "./ProfileCardStyled";

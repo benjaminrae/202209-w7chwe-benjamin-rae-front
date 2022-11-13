@@ -5,7 +5,9 @@ import HomePage from "../../pages/HomePage/HomePage";
 import { useAppSelector } from "../../redux/hooks";
 import Header from "../Header/Header";
 import Loading from "../Loading/Loading";
+import LoginForm from "../LoginForm/LoginForm";
 import Modal from "../Modal/Modal";
+import RegisterForm from "../RegisterForm/RegisterForm";
 import AppStyled from "./AppStyled";
 
 const ProfilesPage = lazy(
@@ -15,10 +17,6 @@ const ProfilesPage = lazy(
 const NotFoundPage = lazy(
   () => import("../../pages/NotFoundPage/NotFoundPage")
 );
-
-const LoginForm = lazy(() => import("../LoginForm/LoginForm"));
-
-const RegisterForm = lazy(() => import("../RegisterForm/RegisterForm"));
 
 const App = (): JSX.Element => {
   const { isLoading, showModal, isError, modalText } = useAppSelector(
