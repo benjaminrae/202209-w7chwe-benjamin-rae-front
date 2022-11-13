@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Navigate, Route, Routes } from "react-router";
+import { Route, Routes } from "react-router";
 import HomePage from "../../pages/HomePage/HomePage";
 import { useAppSelector } from "../../redux/hooks";
 import Header from "../Header/Header";
