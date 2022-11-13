@@ -3,7 +3,7 @@ import { ValidationError } from "joi";
 import registerFormSchema from "../../schemas/registerFormSchema";
 import Button from "../Button/Button";
 import RegisterFormStyled from "./RegisterFormStyled";
-import useUser from "../../hooks/useUser";
+import useUser from "../../hooks/useUser/useUser";
 export interface RegisterFormData {
   username: string;
   email: string;

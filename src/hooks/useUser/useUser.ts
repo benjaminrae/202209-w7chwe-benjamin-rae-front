@@ -1,14 +1,14 @@
 import axios, { AxiosError } from "axios";
 import decodeToken from "jwt-decode";
-import { RegisterFormData } from "../components/RegisterForm/RegisterForm";
+import { RegisterFormData } from "../../components/RegisterForm/RegisterForm";
 import {
   hideLoadingActionCreator,
   showLoadingActionCreator,
   showModalActionCreator,
-} from "../redux/features/uiSlice/uiSlice";
-import { User } from "../redux/features/userSlice/types";
-import { loginUserActionCreator } from "../redux/features/userSlice/userSlice";
-import { useAppDispatch } from "../redux/hooks";
+} from "../../redux/features/uiSlice/uiSlice";
+import { User } from "../../redux/features/userSlice/types";
+import { loginUserActionCreator } from "../../redux/features/userSlice/userSlice";
+import { useAppDispatch } from "../../redux/hooks";
 import { CustomTokenPayload } from "./types";
 
 interface AxiosErrorResponseBody {

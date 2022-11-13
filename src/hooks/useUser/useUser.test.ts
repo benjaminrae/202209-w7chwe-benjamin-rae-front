@@ -1,15 +1,15 @@
 import { renderHook } from "@testing-library/react";
-import { RegisterFormData } from "../components/RegisterForm/RegisterForm";
-import mockInitialStore from "../mocks/stores/mockInitialStore";
-import { ShowModalActionPayload } from "../redux/features/uiSlice/types";
+import { RegisterFormData } from "../../components/RegisterForm/RegisterForm";
+import mockInitialStore from "../../mocks/stores/mockInitialStore";
+import { ShowModalActionPayload } from "../../redux/features/uiSlice/types";
 import {
   hideLoadingActionCreator,
   showLoadingActionCreator,
   showModalActionCreator,
-} from "../redux/features/uiSlice/uiSlice";
-import { User } from "../redux/features/userSlice/types";
-import { loginUserActionCreator } from "../redux/features/userSlice/userSlice";
-import ProviderWrapper from "../testUtils/ProviderWrapper";
+} from "../../redux/features/uiSlice/uiSlice";
+import { User } from "../../redux/features/userSlice/types";
+import { loginUserActionCreator } from "../../redux/features/userSlice/userSlice";
+import ProviderWrapper from "../../testUtils/ProviderWrapper";
 import { CustomTokenPayload } from "./types";
 import useUser, { LoginFormData } from "./useUser";
 
