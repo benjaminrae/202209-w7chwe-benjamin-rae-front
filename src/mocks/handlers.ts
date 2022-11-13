@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { rest } from "msw";
 import { RegisterFormData } from "../components/RegisterForm/RegisterForm";
 import { LoginFormData } from "../hooks/useUser/useUser";
@@ -30,6 +31,13 @@ const handlers = [
     }
 
     return res(ctx.status(200), ctx.json({ token: "testtoken" }));
+  }),
+
+  rest.get(`${apiUrl}/profiles`, (req, res, ctx) => {
+    return res.once(
+      ctx.status(404),
+      ctx.json({ error: "There was an error on the server" })
+    );
   }),
 
   rest.get(`${apiUrl}/profiles`, (req, res, ctx) => {
