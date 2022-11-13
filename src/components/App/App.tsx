@@ -7,6 +7,7 @@ import Header from "../Header/Header";
 import Loading from "../Loading/Loading";
 import LoginForm from "../LoginForm/LoginForm";
 import Modal from "../Modal/Modal";
+import ProfileCard from "../ProfileCard/ProfileCard";
 import RegisterForm from "../RegisterForm/RegisterForm";
 import AppStyled from "./AppStyled";
 
@@ -23,6 +24,7 @@ const App = (): JSX.Element => {
         <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/login" element={<LoginForm />} />
+        <Route path="/test" element={<ProfileCard />} />
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
       {isLoading && <Loading />}
