@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import useUser, { LoginFormData } from "../../hooks/useUser/useUser";
+import { LoginFormData } from "../../hooks/useUser/useUser";
 import renderWithProviders from "../../testUtils/renderWithProviders";
 import LoginForm from "./LoginForm";
 
