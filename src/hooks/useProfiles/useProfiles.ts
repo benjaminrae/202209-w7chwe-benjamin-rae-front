@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import { useCallback } from "react";
 import { loadProfilesActionCreator } from "../../redux/features/profilesSlice/profilesSlice";
 import {
   hideLoadingActionCreator,
@@ -23,7 +24,7 @@ const useProfiles = (): UseProfilesStructure => {
   const { token } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
-  const loadAllProfiles = async () => {
+  const loadAllProfiles = useCallback(async () => {
     try {
       dispatch(showLoadingActionCreator());
 
@@ -53,7 +54,8 @@ const useProfiles = (): UseProfilesStructure => {
         );
       }
     }
-  };
+  }, [dispatch, token]);
+
   return { loadAllProfiles };
 };
 

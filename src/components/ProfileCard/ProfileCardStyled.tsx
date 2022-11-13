@@ -14,10 +14,12 @@ const ProfileCardStyled = styled.li`
       flex-direction: column;
       gap: 1rem;
       align-items: center;
+      justify-content: space-between;
     }
     &__buttons {
       display: flex;
       gap: 1rem;
+      justify-self: flex-end;
     }
     &__image {
       object-fit: cover;
@@ -32,7 +34,7 @@ const ProfileCardStyled = styled.li`
     font-size: 1.5rem;
   }
 
-  @media only screen and (min-width: 430px) {
+  @media only screen and (min-width: 500px) {
     flex-direction: row;
     .profile-card {
       &__info {

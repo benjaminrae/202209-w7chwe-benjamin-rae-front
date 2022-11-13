@@ -9,7 +9,11 @@ const ProfileListStyled = styled.main`
   }
 
   @media only screen and (min-width: 1000px) {
-    grid-template-columns: repeat(2, 1fr);
+    .profile-list {
+      &__list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
   }
 `;
 

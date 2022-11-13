@@ -1,14 +1,15 @@
-import { getRandomProfileList } from "../../factories/profileFactory";
+import { useAppSelector } from "../../redux/hooks";
 import ProfileCard from "../ProfileCard/ProfileCard";
 import ProfileListStyled from "./ProifleListStyled";
 
 const ProfileList = () => {
-  const profileList = getRandomProfileList(20);
+  const { profiles } = useAppSelector((state) => state.profiles);
+
   return (
     <ProfileListStyled>
-      <span>{`${profileList.length} profiles found`}</span>
+      <span>{`${profiles.length} profiles found`}</span>
       <ul className="profile-list__list">
-        {profileList.map((profile) => (
+        {profiles.map((profile) => (
           <ProfileCard profile={profile} key={profile.id} />
         ))}
       </ul>
