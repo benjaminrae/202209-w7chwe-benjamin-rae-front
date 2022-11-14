@@ -26,6 +26,7 @@ const ProfileCardStyled = styled.li`
       object-position: top;
       border-radius: 0.5rem;
       aspect-ratio: 1;
+      max-width: 100%;
     }
   }
   .button {
@@ -35,7 +36,6 @@ const ProfileCardStyled = styled.li`
   }
 
   @media only screen and (min-width: 500px) {
-    flex-direction: row;
     .profile-card {
       &__info {
       }

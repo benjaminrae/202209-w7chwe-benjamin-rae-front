@@ -6,7 +6,13 @@ const AppStyled = styled.div`
   padding: 0 ${(props) => props.theme.paddingHorizontal};
   padding-bottom: 4em;
   min-height: 100vh;
-  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @media only screen and (min-width: 1300px) {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 `;
 
 export default AppStyled;

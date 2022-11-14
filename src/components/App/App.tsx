@@ -8,7 +8,6 @@ import Header from "../Header/Header";
 import Loading from "../Loading/Loading";
 import LoginForm from "../LoginForm/LoginForm";
 import Modal from "../Modal/Modal";
-import RegisterForm from "../RegisterForm/RegisterForm";
 import AppStyled from "./AppStyled";
 
 const ProfilesPage = lazy(
@@ -44,7 +43,7 @@ const App = (): JSX.Element => {
         />
         <Route
           path="/register"
-          element={isLogged ? <Navigate to="/profiles" /> : <RegisterForm />}
+          element={isLogged ? <Navigate to="/profiles" /> : <HomePage />}
         />
         <Route
           path="/login"
