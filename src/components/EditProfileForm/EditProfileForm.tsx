@@ -3,7 +3,7 @@ import EditProfileFormStyled from "./EditProfileFormStyled";
 import { ReactComponent as Edit } from "../../resources/svgs/edit.svg";
 import React, { useState } from "react";
 
-interface EditProfileData {
+export interface EditProfileData {
   location: string;
   birthday: string;
   bio: string;
