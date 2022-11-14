@@ -1,7 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useCallback } from "react";
 import { useNavigate } from "react-router";
-import { hide } from "yargs";
 import { EditProfileData } from "../../components/EditProfileForm/EditProfileForm";
 import { loadProfilesActionCreator } from "../../redux/features/profilesSlice/profilesSlice";
 import { ProfileStructure } from "../../redux/features/profilesSlice/types";
@@ -10,7 +9,6 @@ import {
   showLoadingActionCreator,
   showModalActionCreator,
 } from "../../redux/features/uiSlice/uiSlice";
-import { User } from "../../redux/features/userSlice/types";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { AxiosErrorResponseBody } from "../useUser/types";
 import { LoadProfilesResponse } from "./types";
