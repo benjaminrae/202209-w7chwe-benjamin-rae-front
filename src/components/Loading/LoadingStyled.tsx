@@ -5,7 +5,7 @@ const LoadingStyled = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  position: fixed;
   height: 100%;
   top: 0;
   left: 0;

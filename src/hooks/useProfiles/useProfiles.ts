@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useCallback } from "react";
+import { Navigate, useNavigate } from "react-router";
 import { EditProfileData } from "../../components/EditProfileForm/EditProfileForm";
 import { loadProfilesActionCreator } from "../../redux/features/profilesSlice/profilesSlice";
 import { ProfileStructure } from "../../redux/features/profilesSlice/types";
@@ -27,6 +28,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 const useProfiles = (): UseProfilesStructure => {
   const { token } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const loadAllProfiles = useCallback(async () => {
     try {
@@ -64,7 +66,7 @@ const useProfiles = (): UseProfilesStructure => {
     dispatch(showLoadingActionCreator());
 
     try {
-      const response = await axios.put<ProfileStructure>(
+      await axios.put<ProfileStructure>(
         `${apiUrl}${profilesRoutes.profilesRoute}${profilesRoutes.editRoute}`,
         editProfileFormData,
         {
@@ -82,6 +84,7 @@ const useProfiles = (): UseProfilesStructure => {
           modalText: "Profile updated successfully",
         })
       );
+      navigate("/profiles");
     } catch (error: unknown) {
       dispatch(hideLoadingActionCreator());
 

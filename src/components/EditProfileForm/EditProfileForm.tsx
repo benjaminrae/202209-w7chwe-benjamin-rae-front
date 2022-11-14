@@ -2,6 +2,7 @@ import Button from "../Button/Button";
 import EditProfileFormStyled from "./EditProfileFormStyled";
 import { ReactComponent as Edit } from "../../resources/svgs/edit.svg";
 import React, { useState } from "react";
+import useProfiles from "../../hooks/useProfiles/useProfiles";
 
 export interface EditProfileData {
   location: string;
@@ -22,6 +23,8 @@ const EditProfileForm = () => {
     initialEditProfileData
   );
 
+  const { editProfile } = useProfiles();
+
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -34,10 +37,24 @@ const EditProfileForm = () => {
     }));
   };
 
+  const handleFormSubmit = (event: React.SyntheticEvent) => {
+    event.preventDefault();
+
+    const editFormData: EditProfileData = {
+      ...editProfileData,
+      birthday: new Date(editProfileData.birthday).getTime().toString(),
+    };
+
+    editProfile(editFormData);
+  };
+
   return (
     <EditProfileFormStyled>
       <Edit className="edit-profile__icon" />
-      <form className="edit-profile__container form">
+      <form
+        className="edit-profile__container form"
+        onSubmit={handleFormSubmit}
+      >
         <h2 className="edit-profile__title form__title">Edit your profile</h2>
         <div className="edit-profile__form-group form__group">
           <label htmlFor="location" className="edit-profile__label form__label">
