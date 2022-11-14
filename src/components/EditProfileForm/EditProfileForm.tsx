@@ -9,7 +9,7 @@ const EditProfileForm = () => {
       <form className="edit-profile__container form">
         <h2 className="edit-profile__title form__title">Edit your profile</h2>
         <div className="edit-profile__form-group form__group">
-          <label htmlFor="username" className="edit-profile__label form__label">
+          <label htmlFor="location" className="edit-profile__label form__label">
             Location
           </label>
           <input
@@ -20,7 +20,7 @@ const EditProfileForm = () => {
           />
         </div>
         <div className="edit-profile__form-group form__group">
-          <label htmlFor="username" className="edit-profile__label form__label">
+          <label htmlFor="birthday" className="edit-profile__label form__label">
             Birthday
           </label>
           <input
@@ -31,7 +31,7 @@ const EditProfileForm = () => {
           />
         </div>
         <div className="edit-profile__form-group form__group">
-          <label htmlFor="username" className="edit-profile__label form__label">
+          <label htmlFor="bio" className="edit-profile__label form__label">
             Bio
           </label>
           <textarea
@@ -42,7 +42,7 @@ const EditProfileForm = () => {
           />
         </div>
         <div className="edit-profile__form-group form__group">
-          <label htmlFor="username" className="edit-profile__label form__label">
+          <label htmlFor="image" className="edit-profile__label form__label">
             Avatar
           </label>
           <input
