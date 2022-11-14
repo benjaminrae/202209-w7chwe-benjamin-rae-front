@@ -3,6 +3,7 @@ import { Navigate, Route, Routes, useNavigate } from "react-router";
 import useToken from "../../hooks/useToken/useToken";
 import HomePage from "../../pages/HomePage/HomePage";
 import { useAppSelector } from "../../redux/hooks";
+import EditProfileForm from "../EditProfileForm/EditProfileForm";
 import Header from "../Header/Header";
 import Loading from "../Loading/Loading";
 import LoginForm from "../LoginForm/LoginForm";
@@ -53,6 +54,7 @@ const App = (): JSX.Element => {
           path="/profiles"
           element={!isLogged ? <Navigate to="/" /> : <ProfilesPage />}
         />
+        <Route path="/edit-profile" element={<EditProfileForm />} />
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
       {isLoading && <Loading />}
