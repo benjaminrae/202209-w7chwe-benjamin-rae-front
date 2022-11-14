@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useCallback } from "react";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { EditProfileData } from "../../components/EditProfileForm/EditProfileForm";
 import { loadProfilesActionCreator } from "../../redux/features/profilesSlice/profilesSlice";
 import { ProfileStructure } from "../../redux/features/profilesSlice/types";

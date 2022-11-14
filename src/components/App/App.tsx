@@ -8,7 +8,6 @@ import Header from "../Header/Header";
 import Loading from "../Loading/Loading";
 import LoginForm from "../LoginForm/LoginForm";
 import Modal from "../Modal/Modal";
-import RegisterForm from "../RegisterForm/RegisterForm";
 import AppStyled from "./AppStyled";
 
 const ProfilesPage = lazy(
