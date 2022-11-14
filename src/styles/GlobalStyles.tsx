@@ -90,7 +90,7 @@ a {
     visibility: hidden;
   }
   .form__input--file::before {
-    content: "Select some files";
+    content: "Select image file";
     display: inline-block;
     background: linear-gradient(top, #f9f9f9, #e3e3e3);
     border: 1px solid #999;

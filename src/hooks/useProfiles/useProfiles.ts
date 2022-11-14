@@ -12,6 +12,7 @@ import { LoadProfilesResponse } from "./types";
 
 interface UseProfilesStructure {
   loadAllProfiles: () => Promise<void>;
+  editProfile: () => Promise<void>;
 }
 
 const profilesRoutes = {
