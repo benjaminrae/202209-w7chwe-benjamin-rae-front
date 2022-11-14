@@ -8,21 +8,21 @@ const ProfileListStyled = styled.main`
     }
   }
 
-  @media only screen and (min-width: 500px) {
+  @media only screen and (min-width: 560px) {
     .profile-list {
       &__list {
         grid-template-columns: repeat(2, 1fr);
       }
     }
   }
-  @media only screen and (min-width: 750px) {
+  @media only screen and (min-width: 815px) {
     .profile-list {
       &__list {
         grid-template-columns: repeat(3, 1fr);
       }
     }
   }
-  @media only screen and (min-width: 1000px) {
+  @media only screen and (min-width: 1065px) {
     .profile-list {
       &__list {
         grid-template-columns: repeat(4, 1fr);

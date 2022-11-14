@@ -44,7 +44,7 @@ const App = (): JSX.Element => {
         />
         <Route
           path="/register"
-          element={isLogged ? <Navigate to="/profiles" /> : <RegisterForm />}
+          element={isLogged ? <Navigate to="/profiles" /> : <HomePage />}
         />
         <Route
           path="/login"
