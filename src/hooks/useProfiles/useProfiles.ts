@@ -2,7 +2,10 @@ import axios, { AxiosError } from "axios";
 import { useCallback } from "react";
 import { useNavigate } from "react-router";
 import { EditProfileData } from "../../components/EditProfileForm/EditProfileForm";
-import { loadProfilesActionCreator } from "../../redux/features/profilesSlice/profilesSlice";
+import {
+  loadCurrentProfileActionCreator,
+  loadProfilesActionCreator,
+} from "../../redux/features/profilesSlice/profilesSlice";
 import { ProfileStructure } from "../../redux/features/profilesSlice/types";
 import {
   hideLoadingActionCreator,
@@ -11,16 +14,18 @@ import {
 } from "../../redux/features/uiSlice/uiSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { AxiosErrorResponseBody } from "../useUser/types";
-import { LoadProfilesResponse } from "./types";
+import { GetProfileByIdResponse, LoadProfilesResponse } from "./types";
 
 interface UseProfilesStructure {
   loadAllProfiles: () => Promise<void>;
   editProfile: (editProfileFormData: EditProfileData) => Promise<void>;
+  getProfileById: (profileId: string) => Promise<void>;
 }
 
 const profilesRoutes = {
   profilesRoute: "/profiles",
   editRoute: "/edit",
+  profileRoute: "/profile",
 };
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -100,7 +105,40 @@ const useProfiles = (): UseProfilesStructure => {
     }
   };
 
-  return { loadAllProfiles, editProfile };
+  const getProfileById = useCallback(
+    async (profileId: string) => {
+      dispatch(showLoadingActionCreator());
+
+      try {
+        const response = await axios.get<GetProfileByIdResponse>(
+          `${apiUrl}${profilesRoutes.profilesRoute}${profilesRoutes.profileRoute}/${profileId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        dispatch(loadCurrentProfileActionCreator(response.data.profile));
+        dispatch(hideLoadingActionCreator());
+      } catch (error: unknown) {
+        dispatch(hideLoadingActionCreator());
+
+        if (error instanceof AxiosError) {
+          dispatch(
+            showModalActionCreator({
+              isError: true,
+              modalText: (error as AxiosError<AxiosErrorResponseBody>).response
+                ?.data.error!,
+            })
+          );
+        }
+      }
+    },
+    [dispatch, token]
+  );
+
+  return { loadAllProfiles, editProfile, getProfileById };
 };
 
 export default useProfiles;

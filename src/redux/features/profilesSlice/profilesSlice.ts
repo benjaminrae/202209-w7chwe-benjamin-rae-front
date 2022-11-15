@@ -3,6 +3,7 @@ import { ProfileStructure, ProfilesState } from "./types";
 
 const initialProfilesState: ProfilesState = {
   profiles: [],
+  currentProfile: {} as ProfileStructure,
 };
 
 const profilesSlice = createSlice({
@@ -16,10 +17,19 @@ const profilesSlice = createSlice({
       ...currentProfilesState,
       profiles: action.payload,
     }),
+    loadCurrentProfile: (
+      currentProfilesState,
+      action: PayloadAction<ProfileStructure>
+    ) => ({
+      ...currentProfilesState,
+      currentProfile: action.payload,
+    }),
   },
 });
 
-export const { loadProfiles: loadProfilesActionCreator } =
-  profilesSlice.actions;
+export const {
+  loadProfiles: loadProfilesActionCreator,
+  loadCurrentProfile: loadCurrentProfileActionCreator,
+} = profilesSlice.actions;
 
 export const profilesReducer = profilesSlice.reducer;

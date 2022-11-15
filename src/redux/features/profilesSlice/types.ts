@@ -11,4 +11,5 @@ export interface ProfileStructure extends Omit<User, "token"> {
 
 export interface ProfilesState {
   profiles: ProfileStructure[];
+  currentProfile: ProfileStructure;
 }
