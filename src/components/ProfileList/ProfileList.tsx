@@ -34,12 +34,15 @@ const ProfileList = () => {
 
   return (
     <ProfileListStyled>
-      <select onChange={handleFilterChange}>
+      <select
+        onChange={handleFilterChange}
+        className="profile-list__filter form__input"
+      >
         <option value={"removed"}>Show all</option>
         <option value={"friends"}>Friends</option>
         <option value={"enemies"}>Enemies</option>
       </select>
-      <span>{`${profiles.length} profiles found`}</span>
+      <span>{`${profilesToShow.length} profiles found`}</span>
       <ul className="profile-list__list">
         {profilesToShow.map((profile) => (
           <ProfileCard
