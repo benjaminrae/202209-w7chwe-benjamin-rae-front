@@ -12,6 +12,15 @@ const ButtonStyled = styled.button`
     color: ${(props) => props.theme.colorPrimary};
     background-color: ${(props) => props.theme.backgroundColor};
   }
+  &.button--inverted {
+    color: ${(props) => props.theme.colorPrimary};
+    background-color: ${(props) => props.theme.backgroundColor};
+    &:hover,
+    :focus {
+      color: ${(props) => props.theme.backgroundColor};
+      background-color: ${(props) => props.theme.colorPrimary};
+    }
+  }
 `;
 
 export default ButtonStyled;

@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import { disallow } from "joi";
 import { useCallback } from "react";
 import { useNavigate } from "react-router";
 import { EditProfileData } from "../../components/EditProfileForm/EditProfileForm";
@@ -14,26 +15,40 @@ import {
 } from "../../redux/features/uiSlice/uiSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { AxiosErrorResponseBody } from "../useUser/types";
-import { GetProfileByIdResponse, LoadProfilesResponse } from "./types";
+import {
+  GetProfileByIdResponse,
+  LoadProfilesResponse,
+  UpdateRelationshipBody,
+} from "./types";
 
 interface UseProfilesStructure {
   loadAllProfiles: () => Promise<void>;
   editProfile: (editProfileFormData: EditProfileData) => Promise<void>;
   getProfileById: (profileId: string) => Promise<void>;
+  updateRelationship: (
+    relationshipData: Omit<UpdateRelationshipBody, "currentUser">
+  ) => Promise<void>;
 }
 
 const profilesRoutes = {
   profilesRoute: "/profiles",
   editRoute: "/edit",
   profileRoute: "/profile",
+  relationshipRoute: "/relationship",
 };
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const useProfiles = (): UseProfilesStructure => {
-  const { token } = useAppSelector((state) => state.user);
+  const { token, username } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const authHeaders = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
   const loadAllProfiles = useCallback(async () => {
     try {
@@ -41,11 +56,7 @@ const useProfiles = (): UseProfilesStructure => {
 
       const response = await axios.get<LoadProfilesResponse>(
         `${apiUrl}${profilesRoutes.profilesRoute}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        authHeaders
       );
 
       const { profiles } = response.data;
@@ -112,11 +123,7 @@ const useProfiles = (): UseProfilesStructure => {
       try {
         const response = await axios.get<GetProfileByIdResponse>(
           `${apiUrl}${profilesRoutes.profilesRoute}${profilesRoutes.profileRoute}/${profileId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          authHeaders
         );
 
         dispatch(loadCurrentProfileActionCreator(response.data.profile));
@@ -138,7 +145,33 @@ const useProfiles = (): UseProfilesStructure => {
     [dispatch, token]
   );
 
-  return { loadAllProfiles, editProfile, getProfileById };
+  const updateRelationship = async (
+    relationshipData: Omit<UpdateRelationshipBody, "currentUser">
+  ) => {
+    const completeRelationshipData: UpdateRelationshipBody = {
+      ...relationshipData,
+      currentUser: username,
+    };
+
+    try {
+      const response = await axios.put<ProfileStructure>(
+        `${apiUrl}${profilesRoutes.profilesRoute}${profilesRoutes.relationshipRoute}`,
+        completeRelationshipData,
+        authHeaders
+      );
+
+      dispatch(loadCurrentProfileActionCreator(response.data));
+    } catch (error) {
+      disallow(
+        showModalActionCreator({
+          isError: true,
+          modalText: (error as Error).message,
+        })
+      );
+    }
+  };
+
+  return { loadAllProfiles, editProfile, getProfileById, updateRelationship };
 };
 
 export default useProfiles;

@@ -17,7 +17,9 @@ describe("Given a ProfileCard component", () => {
       const thumbsUpButtonText = "👍";
       const thumbsDownButtonText = "👎";
 
-      renderWithProviders(<ProfileCard profile={userProfile} />);
+      renderWithProviders(
+        <ProfileCard profile={userProfile} relationship="removed" />
+      );
 
       const renderedHeading = screen.queryByRole("heading", expectedHeading);
       const userLocation = screen.queryByText(userProfile.location!);
