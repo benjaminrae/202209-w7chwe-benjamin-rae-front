@@ -75,7 +75,7 @@ const useProfiles = (): UseProfilesStructure => {
         );
       }
     }
-  }, [dispatch, token, authHeaders]);
+  }, [dispatch, authHeaders]);
 
   const editProfile = async (editProfileFormData: EditProfileData) => {
     dispatch(showLoadingActionCreator());
@@ -141,7 +141,7 @@ const useProfiles = (): UseProfilesStructure => {
         }
       }
     },
-    [dispatch, token, authHeaders]
+    [dispatch, authHeaders]
   );
 
   const updateRelationship = async (
