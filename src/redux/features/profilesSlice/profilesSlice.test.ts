@@ -1,4 +1,3 @@
-import { profile } from "console";
 import {
   getRandomProfile,
   getRandomProfileList,
