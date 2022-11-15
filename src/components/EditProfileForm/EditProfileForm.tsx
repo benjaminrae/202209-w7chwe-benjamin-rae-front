@@ -1,8 +1,9 @@
 import Button from "../Button/Button";
 import EditProfileFormStyled from "./EditProfileFormStyled";
 import { ReactComponent as Edit } from "../../resources/svgs/edit.svg";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useProfiles from "../../hooks/useProfiles/useProfiles";
+import { useAppSelector } from "../../redux/hooks";
 
 export interface EditProfileData {
   location: string;
@@ -19,11 +20,29 @@ const initialEditProfileData: EditProfileData = {
 };
 
 const EditProfileForm = () => {
+  const {
+    profiles: { currentProfile },
+    user: { id },
+  } = useAppSelector((state) => state);
+
   const [editProfileData, setEditProfileData] = useState(
     initialEditProfileData
   );
 
-  const { editProfile } = useProfiles();
+  const { editProfile, getProfileById } = useProfiles();
+
+  useEffect(() => {
+    getProfileById(id);
+  }, [getProfileById, id]);
+
+  useEffect(() => {
+    setEditProfileData((previousData) => ({
+      ...previousData,
+      bio: currentProfile.bio!,
+      location: currentProfile.location!,
+      birthday: currentProfile.birthday!,
+    }));
+  }, [currentProfile.bio, currentProfile.birthday, currentProfile.location]);
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -40,12 +59,7 @@ const EditProfileForm = () => {
   const handleFormSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    const editFormData: EditProfileData = {
-      ...editProfileData,
-      birthday: new Date(editProfileData.birthday).getTime().toString(),
-    };
-
-    editProfile(editFormData);
+    editProfile(editProfileData);
   };
 
   return (
