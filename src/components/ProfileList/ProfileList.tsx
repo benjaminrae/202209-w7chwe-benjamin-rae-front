@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Relationships } from "../../hooks/useProfiles/types";
 import { useAppSelector } from "../../redux/hooks";
 import ProfileCard from "../ProfileCard/ProfileCard";
