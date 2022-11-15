@@ -3,7 +3,10 @@ import { ProfileStructure, ProfilesState } from "./types";
 
 const initialProfilesState: ProfilesState = {
   profiles: [],
-  currentProfile: {} as ProfileStructure,
+  currentProfile: {
+    enemies: [] as string[],
+    friends: [] as string[],
+  } as ProfileStructure,
 };
 
 const profilesSlice = createSlice({

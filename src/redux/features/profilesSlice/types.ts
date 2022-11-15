@@ -7,6 +7,8 @@ export interface ProfileStructure extends Omit<User, "token"> {
   image?: string;
   backupImage?: string;
   birthday?: string;
+  friends?: string[];
+  enemies?: string[];
 }
 
 export interface ProfilesState {

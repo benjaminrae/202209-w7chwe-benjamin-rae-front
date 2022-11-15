@@ -3,14 +3,27 @@ import ProfileCard from "../ProfileCard/ProfileCard";
 import ProfileListStyled from "./ProifleListStyled";
 
 const ProfileList = () => {
-  const { profiles } = useAppSelector((state) => state.profiles);
+  const {
+    currentProfile: { enemies, friends },
+    profiles,
+  } = useAppSelector((state) => state.profiles);
 
   return (
     <ProfileListStyled>
       <span>{`${profiles.length} profiles found`}</span>
       <ul className="profile-list__list">
         {profiles.map((profile) => (
-          <ProfileCard profile={profile} key={profile.id} />
+          <ProfileCard
+            profile={profile}
+            key={profile.id}
+            relationship={
+              friends?.includes(profile.id)
+                ? "friends"
+                : enemies?.includes(profile.id)
+                ? "enemies"
+                : "removed"
+            }
+          />
         ))}
       </ul>
     </ProfileListStyled>
