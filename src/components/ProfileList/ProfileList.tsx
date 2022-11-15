@@ -1,4 +1,3 @@
-import { ProfileStructure } from "../../redux/features/profilesSlice/types";
 import { useAppSelector } from "../../redux/hooks";
 import ProfileCard from "../ProfileCard/ProfileCard";
 import ProfileListStyled from "./ProifleListStyled";
