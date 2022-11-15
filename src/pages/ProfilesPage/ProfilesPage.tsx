@@ -11,7 +11,7 @@ const ProfilesPage = () => {
   useEffect(() => {
     loadAllProfiles();
     getProfileById(id);
-  }, [loadAllProfiles]);
+  }, [getProfileById, id, loadAllProfiles]);
 
   return (
     <ProfilesPageStyled>

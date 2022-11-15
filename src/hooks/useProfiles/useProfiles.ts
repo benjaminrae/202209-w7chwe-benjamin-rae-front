@@ -1,5 +1,4 @@
 import axios, { AxiosError } from "axios";
-import { disallow } from "joi";
 import { useCallback } from "react";
 import { useNavigate } from "react-router";
 import { EditProfileData } from "../../components/EditProfileForm/EditProfileForm";
@@ -154,15 +153,15 @@ const useProfiles = (): UseProfilesStructure => {
     };
 
     try {
-      const response = await axios.put<ProfileStructure>(
+      const response = await axios.put<{ profile: ProfileStructure }>(
         `${apiUrl}${profilesRoutes.profilesRoute}${profilesRoutes.relationshipRoute}`,
         completeRelationshipData,
         authHeaders
       );
 
-      dispatch(loadCurrentProfileActionCreator(response.data));
+      dispatch(loadCurrentProfileActionCreator(response.data.profile));
     } catch (error) {
-      disallow(
+      dispatch(
         showModalActionCreator({
           isError: true,
           modalText: (error as Error).message,

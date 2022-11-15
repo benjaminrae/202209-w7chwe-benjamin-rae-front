@@ -44,12 +44,13 @@ const ProfileCard = ({
               aria-label="Add user to friends"
               inverted={relationship !== "friends"}
               action={() =>
-                updateRelationship({
-                  relationship:
-                    relationship === "friends" ? "removed" : "friends",
-                  targetUser: username,
-                  targetUserId: id,
-                })
+                (async () =>
+                  updateRelationship({
+                    relationship:
+                      relationship === "friends" ? "removed" : "friends",
+                    targetUser: username,
+                    targetUserId: id,
+                  }))()
               }
             />
           </div>
