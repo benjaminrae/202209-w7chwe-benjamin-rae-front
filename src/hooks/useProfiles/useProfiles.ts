@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router";
 import { EditProfileData } from "../../components/EditProfileForm/EditProfileForm";
 import {
@@ -43,11 +43,14 @@ const useProfiles = (): UseProfilesStructure => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const authHeaders = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
+  const authHeaders = useMemo(
+    () => ({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+    [token]
+  );
 
   const loadAllProfiles = useCallback(async () => {
     try {
