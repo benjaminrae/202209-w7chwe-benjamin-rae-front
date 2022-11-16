@@ -7,12 +7,3 @@ export interface User {
   id: string;
   token: string;
 }
-
-export interface ProfileStructure extends Omit<User, "token"> {
-  email: string;
-  location?: string;
-  bio?: string;
-  image?: string;
-  backupImage?: string;
-  birthday?: string;
-}

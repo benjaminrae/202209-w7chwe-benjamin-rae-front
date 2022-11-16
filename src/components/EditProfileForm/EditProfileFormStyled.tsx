@@ -21,6 +21,7 @@ const EditProfileFormStyled = styled.div`
         display: block;
         flex: 1;
         max-height: 60vh;
+        object-fit: contain;
       }
     }
   } ;

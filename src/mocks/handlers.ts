@@ -1,5 +1,6 @@
 import { rest } from "msw";
 import { RegisterFormData } from "../components/RegisterForm/RegisterForm";
+import { getRandomProfile } from "../factories/profileFactory";
 import { LoginFormData } from "../hooks/useUser/useUser";
 import mockLoadProfilesResponse from "./responses/mockLoadProfilesResponse";
 
@@ -41,6 +42,10 @@ const handlers = [
 
   rest.get(`${apiUrl}/profiles`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(mockLoadProfilesResponse));
+  }),
+
+  rest.get(`${apiUrl}/profiles/:profileId`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({ profile: getRandomProfile() }));
   }),
 ];
 

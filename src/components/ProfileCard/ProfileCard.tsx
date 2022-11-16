@@ -22,7 +22,7 @@ const ProfileCard = ({
       <ProfileCardStyled>
         <div className="profile-card__info">
           <h3>
-            {username}, {getAge(birthday!) ?? "?"}
+            {username}, {getAge(birthday!) || "?"}
           </h3>
           <div>{location}</div>
           <div className="profile-card__buttons">
