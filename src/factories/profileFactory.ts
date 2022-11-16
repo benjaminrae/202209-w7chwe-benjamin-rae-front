@@ -9,7 +9,7 @@ const profileFactory = Factory.define<ProfileStructure>(() => ({
   backupImage: faker.internet.avatar(),
   image: faker.internet.avatar(),
   bio: faker.random.words(30),
-  birthday: faker.date.birthdate().getTime().toString(),
+  birthday: faker.date.birthdate().toISOString(),
   location: faker.address.cityName(),
 }));
 

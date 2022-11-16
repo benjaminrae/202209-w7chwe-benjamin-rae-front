@@ -9,14 +9,14 @@ export interface EditProfileData {
   location: string;
   birthday: string;
   bio: string;
-  image: FileList;
+  image: File;
 }
 
 const initialEditProfileData: EditProfileData = {
   bio: "",
   birthday: "",
   location: "",
-  image: {} as FileList,
+  image: {} as File,
 };
 
 const EditProfileForm = () => {
@@ -64,7 +64,16 @@ const EditProfileForm = () => {
 
   return (
     <EditProfileFormStyled>
-      <Edit className="edit-profile__icon" />
+      {editProfileData.image.name ? (
+        <img
+          src={URL.createObjectURL(editProfileData.image)}
+          alt="Your avatar"
+          className="edit-profile__icon"
+        />
+      ) : (
+        <Edit className="edit-profile__icon" />
+      )}
+
       <form
         className="edit-profile__container form"
         onSubmit={handleFormSubmit}
@@ -122,6 +131,7 @@ const EditProfileForm = () => {
             onChange={handleChange}
           />
         </div>
+
         <Button text="Save Changes" />
       </form>
     </EditProfileFormStyled>
