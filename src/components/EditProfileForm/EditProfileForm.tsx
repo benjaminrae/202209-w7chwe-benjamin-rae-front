@@ -29,6 +29,8 @@ const EditProfileForm = () => {
     initialEditProfileData
   );
 
+  debugger;
+
   const { editProfile, getProfileById } = useProfiles();
 
   useEffect(() => {
