@@ -2,6 +2,7 @@ import { renderHook } from "@testing-library/react";
 import { EditProfileData } from "../../components/EditProfileForm/EditProfileForm";
 import mockGetProfileByIdResponse from "../../mocks/responses/mockGetProfileByIdResponse";
 import mockLoadProfilesResponse from "../../mocks/responses/mockLoadProfilesResponse";
+import mockUpdateRelationshipResponse from "../../mocks/responses/mockUpdateRelationshipResponse";
 import mockInitialStore from "../../mocks/stores/mockInitialStore";
 import {
   loadCurrentProfileActionCreator,
@@ -13,6 +14,7 @@ import {
   showModalActionCreator,
 } from "../../redux/features/uiSlice/uiSlice";
 import ProviderWrapper from "../../testUtils/ProviderWrapper";
+import { UpdateRelationshipBody } from "./types";
 import useProfiles from "./useProfiles";
 
 const dispatchSpy = jest.spyOn(mockInitialStore, "dispatch");
@@ -203,6 +205,59 @@ describe("Given the useProfiles custom hook", () => {
       expect(dispatchSpy).toHaveBeenNthCalledWith(
         3,
         hideLoadingActionCreator()
+      );
+    });
+  });
+
+  describe("When its method update relationship is invoked with id '1234' and the server responds with status 500", () => {
+    test("Then it should invoke dispatch show the modal with an error", async () => {
+      const {
+        result: {
+          current: { updateRelationship },
+        },
+      } = renderHook(() => useProfiles(), {
+        wrapper: ProviderWrapper,
+      });
+
+      const newRelationship: UpdateRelationshipBody = {
+        currentUser: "",
+        relationship: "friends",
+        targetUserId: "1234",
+        targetUser: "",
+      };
+
+      await updateRelationship(newRelationship);
+
+      expect(dispatchSpy).toHaveBeenCalledWith(
+        showModalActionCreator({
+          isError: true,
+          modalText: "Request failed with status code 500",
+        })
+      );
+    });
+  });
+
+  describe("When its method update relationship is invoked with target id '1234'", () => {
+    test("Then dispatch should be called once to update the current profile", async () => {
+      const {
+        result: {
+          current: { updateRelationship },
+        },
+      } = renderHook(() => useProfiles(), {
+        wrapper: ProviderWrapper,
+      });
+
+      const newRelationship: UpdateRelationshipBody = {
+        currentUser: "",
+        relationship: "friends",
+        targetUserId: "1234",
+        targetUser: "",
+      };
+
+      await updateRelationship(newRelationship);
+
+      expect(dispatchSpy).toHaveBeenCalledWith(
+        loadCurrentProfileActionCreator(mockUpdateRelationshipResponse)
       );
     });
   });

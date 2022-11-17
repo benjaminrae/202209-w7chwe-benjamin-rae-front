@@ -4,6 +4,7 @@ import { getRandomProfile } from "../factories/profileFactory";
 import { LoginFormData } from "../hooks/useUser/useUser";
 import mockGetProfileByIdResponse from "./responses/mockGetProfileByIdResponse";
 import mockLoadProfilesResponse from "./responses/mockLoadProfilesResponse";
+import mockUpdateRelationshipResponse from "./responses/mockUpdateRelationshipResponse";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -68,6 +69,20 @@ const handlers = [
 
   rest.put(`${apiUrl}/profiles/edit`, (req, res, ctx) => {
     return res(ctx.status(201), ctx.json({ profile: getRandomProfile() }));
+  }),
+
+  rest.put(`${apiUrl}/profiles/relationship`, (req, res, ctx) => {
+    return res.once(
+      ctx.status(500),
+      ctx.json({ error: "There was an error on the server" })
+    );
+  }),
+
+  rest.put(`${apiUrl}/profiles/relationship`, (req, res, ctx) => {
+    return res(
+      ctx.status(201),
+      ctx.json({ profile: mockUpdateRelationshipResponse })
+    );
   }),
 ];
 
