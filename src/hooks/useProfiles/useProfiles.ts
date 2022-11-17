@@ -102,6 +102,7 @@ const useProfiles = (): UseProfilesStructure => {
           modalText: "Profile updated successfully",
         })
       );
+
       navigate("/profiles");
     } catch (error: unknown) {
       dispatch(hideLoadingActionCreator());

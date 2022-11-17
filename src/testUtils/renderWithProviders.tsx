@@ -13,7 +13,7 @@ import { userReducer } from "../redux/features/userSlice/userSlice";
 import { BrowserRouter } from "react-router-dom";
 import { profilesReducer } from "../redux/features/profilesSlice/profilesSlice";
 
-interface ExtendedRenderOptions extends RenderOptions {
+export interface ExtendedRenderOptions extends RenderOptions {
   preloadedState?: PreloadedState<RootState>;
   store?: typeof store;
 }

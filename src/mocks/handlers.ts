@@ -47,6 +47,10 @@ const handlers = [
   rest.get(`${apiUrl}/profiles/:profileId`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json({ profile: getRandomProfile() }));
   }),
+
+  rest.put(`${apiUrl}/profiles/edit`, (req, res, ctx) => {
+    return res(ctx.status(201), ctx.json({ profile: getRandomProfile() }));
+  }),
 ];
 
 export default handlers;
