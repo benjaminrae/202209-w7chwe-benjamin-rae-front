@@ -1,8 +1,12 @@
 import { renderHook } from "@testing-library/react";
 import { EditProfileData } from "../../components/EditProfileForm/EditProfileForm";
+import mockGetProfileByIdResponse from "../../mocks/responses/mockGetProfileByIdResponse";
 import mockLoadProfilesResponse from "../../mocks/responses/mockLoadProfilesResponse";
 import mockInitialStore from "../../mocks/stores/mockInitialStore";
-import { loadProfilesActionCreator } from "../../redux/features/profilesSlice/profilesSlice";
+import {
+  loadCurrentProfileActionCreator,
+  loadProfilesActionCreator,
+} from "../../redux/features/profilesSlice/profilesSlice";
 import {
   hideLoadingActionCreator,
   showLoadingActionCreator,
@@ -73,8 +77,42 @@ describe("Given the useProfiles custom hook", () => {
     });
   });
 
+  describe("When its method edit profile is invoked with id '1234' and new location 'Barcelona' and the server responds with status 500", () => {
+    test("Then it should invoke dispatch 3 times to show and hide loading and to show the modal with an error", async () => {
+      const {
+        result: {
+          current: { editProfile },
+        },
+      } = renderHook(() => useProfiles(), {
+        wrapper: ProviderWrapper,
+      });
+
+      const newEmail: Partial<EditProfileData> = {
+        location: "Barcelona",
+      };
+
+      await editProfile(newEmail as EditProfileData);
+
+      expect(dispatchSpy).toHaveBeenNthCalledWith(
+        1,
+        showLoadingActionCreator()
+      );
+      expect(dispatchSpy).toHaveBeenNthCalledWith(
+        2,
+        hideLoadingActionCreator()
+      );
+      expect(dispatchSpy).toHaveBeenNthCalledWith(
+        3,
+        showModalActionCreator({
+          isError: true,
+          modalText: "There was an error on the server",
+        })
+      );
+    });
+  });
+
   describe("When its method edit profile is introduced with id '1234' and new location 'Barcelona'", () => {
-    test("Then it should invoke dispatch 3 times to show and hide loading and to show the modal then navigate to '/profiles'", async () => {
+    test("Then it should invoke dispatch 3 times to show and hide loading and to show the modal", async () => {
       const {
         result: {
           current: { editProfile },
@@ -103,6 +141,68 @@ describe("Given the useProfiles custom hook", () => {
           isError: false,
           modalText: "Profile updated successfully",
         })
+      );
+    });
+  });
+
+  describe("When its method get profile by id is invoked with id '1234' and the server responds with status 500", () => {
+    test("Then it should invoke dispatch 3 times to show and hide loading and to show the modal with an error", async () => {
+      const {
+        result: {
+          current: { getProfileById },
+        },
+      } = renderHook(() => useProfiles(), {
+        wrapper: ProviderWrapper,
+      });
+
+      const userId = "1234";
+
+      await getProfileById(userId);
+
+      expect(dispatchSpy).toHaveBeenNthCalledWith(
+        1,
+        showLoadingActionCreator()
+      );
+      expect(dispatchSpy).toHaveBeenNthCalledWith(
+        2,
+        hideLoadingActionCreator()
+      );
+      expect(dispatchSpy).toHaveBeenNthCalledWith(
+        3,
+        showModalActionCreator({
+          isError: true,
+          modalText: "There was an error on the server",
+        })
+      );
+    });
+  });
+
+  describe("When its method get profile by id is invoked with id '1234'", () => {
+    test("Then dispatch should be invoked 4 times to show loading, send the profile to the store and hide loading", async () => {
+      const {
+        result: {
+          current: { getProfileById },
+        },
+      } = renderHook(() => useProfiles(), {
+        wrapper: ProviderWrapper,
+      });
+
+      const userId = "1234";
+      const profile = mockGetProfileByIdResponse;
+
+      await getProfileById(userId);
+
+      expect(dispatchSpy).toHaveBeenNthCalledWith(
+        1,
+        showLoadingActionCreator()
+      );
+      expect(dispatchSpy).toHaveBeenNthCalledWith(
+        2,
+        loadCurrentProfileActionCreator(profile)
+      );
+      expect(dispatchSpy).toHaveBeenNthCalledWith(
+        3,
+        hideLoadingActionCreator()
       );
     });
   });
