@@ -6,7 +6,10 @@ import {
   loadCurrentProfileActionCreator,
   loadProfilesActionCreator,
 } from "../../redux/features/profilesSlice/profilesSlice";
-import { ProfileStructure } from "../../redux/features/profilesSlice/types";
+import {
+  CompleteProfileStructure,
+  ProfileStructure,
+} from "../../redux/features/profilesSlice/types";
 import {
   hideLoadingActionCreator,
   showLoadingActionCreator,
@@ -173,6 +176,30 @@ const useProfiles = (): UseProfilesStructure => {
       );
     }
   };
+
+  const getProfileAndFriendsById = useCallback(
+    async (profileId: string) => {
+      dispatch(showLoadingActionCreator());
+
+      try {
+        const response = await axios.get<{ profile: CompleteProfileStructure }>(
+          `${apiUrl}/profiles/complete-profile/${profileId}`
+        );
+
+        dispatch(hideLoadingActionCreator());
+        dispatch(loadCurrentProfileActionCreator(response.data.profile));
+      } catch (error: unknown) {
+        dispatch(hideLoadingActionCreator());
+        dispatch(
+          showModalActionCreator({
+            isError: true,
+            modalText: "There was an error loading the profile",
+          })
+        );
+      }
+    },
+    [dispatch]
+  );
 
   return { loadAllProfiles, editProfile, getProfileById, updateRelationship };
 };

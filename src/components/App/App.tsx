@@ -2,6 +2,7 @@ import { Suspense, useEffect, lazy } from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router";
 import useToken from "../../hooks/useToken/useToken";
 import HomePage from "../../pages/HomePage/HomePage";
+import ShowProfilePage from "../../pages/ShowProfilePage/ShowProfilePage";
 import { useAppSelector } from "../../redux/hooks";
 import EditProfileForm from "../EditProfileForm/EditProfileForm";
 import Header from "../Header/Header";
@@ -53,7 +54,14 @@ const App = (): JSX.Element => {
           path="/profiles"
           element={!isLogged ? <Navigate to="/" /> : <ProfilesPage />}
         />
-        <Route path="/edit-profile" element={<EditProfileForm />} />
+        <Route
+          path="/profile/:username/:profileId"
+          element={!isLogged ? <Navigate to="/" /> : <ShowProfilePage />}
+        />
+        <Route
+          path="/edit-profile"
+          element={!isLogged ? <Navigate to="/" /> : <EditProfileForm />}
+        />
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
       {isLoading && <Loading />}

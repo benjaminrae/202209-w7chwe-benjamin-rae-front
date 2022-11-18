@@ -5,6 +5,7 @@ import ProfileCardStyled from "./ProfileCardStyled";
 import { ReactComponent as Avatar } from "../../resources/svgs/avatar.svg";
 import useProfiles from "../../hooks/useProfiles/useProfiles";
 import { Relationships } from "../../hooks/useProfiles/types";
+import { Link } from "react-router-dom";
 
 interface ProfileCardProps {
   profile: ProfileStructure;
@@ -21,9 +22,11 @@ const ProfileCard = ({
     <ul>
       <ProfileCardStyled>
         <div className="profile-card__info">
-          <h3>
-            {username}, {getAge(birthday!) || "?"}
-          </h3>
+          <Link to={`/profile/${username}/${id}`}>
+            <h3>
+              {username}, {getAge(birthday!) || "?"}
+            </h3>
+          </Link>
           <div>{location}</div>
           <div className="profile-card__buttons">
             <Button

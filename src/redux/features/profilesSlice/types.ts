@@ -11,7 +11,13 @@ export interface ProfileStructure extends Omit<User, "token"> {
   enemies?: string[];
 }
 
+export interface CompleteProfileStructure
+  extends Omit<ProfileStructure, "friends" | "enemies"> {
+  friends: ProfileStructure[];
+  enemies: ProfileStructure[];
+}
+
 export interface ProfilesState {
   profiles: ProfileStructure[];
-  currentProfile: ProfileStructure;
+  currentProfile: ProfileStructure | CompleteProfileStructure;
 }
