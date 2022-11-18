@@ -10,7 +10,7 @@ const EditProfileFormStyled = styled.div`
   @media only screen and (min-width: 460px) {
   }
 
-  @media only screen and (min-width: 800px) {
+  @media only screen and (min-width: 900px) {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,7 +21,11 @@ const EditProfileFormStyled = styled.div`
         display: block;
         flex: 1;
         max-height: 60vh;
-        object-fit: contain;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 0.5rem;
+        aspect-ratio: 1;
+        max-width: 100%;
       }
     }
   } ;

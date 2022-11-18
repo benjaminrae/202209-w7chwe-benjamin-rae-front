@@ -1,6 +1,6 @@
 import Button from "../Button/Button";
 import EditProfileFormStyled from "./EditProfileFormStyled";
-import { ReactComponent as Edit } from "../../resources/svgs/edit.svg";
+import { ReactComponent as Avatar } from "../../resources/svgs/avatar.svg";
 import React, { useEffect, useState } from "react";
 import useProfiles from "../../hooks/useProfiles/useProfiles";
 import { useAppSelector } from "../../redux/hooks";
@@ -64,14 +64,20 @@ const EditProfileForm = () => {
 
   return (
     <EditProfileFormStyled>
-      {editProfileData.image.name ? (
+      {currentProfile.backupImage ? (
+        <img
+          src={currentProfile.backupImage}
+          alt="Your avatar"
+          className="edit-profile__icon"
+        />
+      ) : editProfileData.image.name ? (
         <img
           src={URL.createObjectURL(editProfileData.image)}
           alt="Your avatar"
           className="edit-profile__icon"
         />
       ) : (
-        <Edit className="edit-profile__icon" />
+        <Avatar className="edit-profile__icon" />
       )}
 
       <form

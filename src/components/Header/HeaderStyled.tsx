@@ -12,6 +12,15 @@ const HeaderStyled = styled.header`
   .active {
     text-decoration: underline;
   }
+
+  @media only screen and (min-width: 500px) {
+    nav > ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+    }
+  }
 `;
 
 export default HeaderStyled;
