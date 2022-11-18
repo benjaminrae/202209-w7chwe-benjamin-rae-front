@@ -5,7 +5,7 @@ import Button from "../Button/Button";
 import HeaderStyled from "./HeaderStyled";
 
 const Header = (): JSX.Element => {
-  const { isLogged } = useAppSelector((state) => state.user);
+  const { isLogged, username, id } = useAppSelector((state) => state.user);
   const { logoutUser } = useUser();
 
   return (
@@ -18,6 +18,9 @@ const Header = (): JSX.Element => {
           </li>
           {isLogged && (
             <>
+              <li>
+                <NavLink to={`/profile/${username}/${id}`}>My Profile</NavLink>
+              </li>
               <li>
                 <NavLink to="/edit-profile">Edit Profile</NavLink>
               </li>

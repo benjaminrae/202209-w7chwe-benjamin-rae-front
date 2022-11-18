@@ -30,6 +30,7 @@ interface UseProfilesStructure {
   updateRelationship: (
     relationshipData: Omit<UpdateRelationshipBody, "currentUser">
   ) => Promise<void>;
+  getProfileAndFriendsById: (profileId: string) => Promise<void>;
 }
 
 const profilesRoutes = {
@@ -183,7 +184,9 @@ const useProfiles = (): UseProfilesStructure => {
 
       try {
         const response = await axios.get<{ profile: CompleteProfileStructure }>(
-          `${apiUrl}/profiles/complete-profile/${profileId}`
+          `${apiUrl}/profiles/complete-profile/${profileId}`,
+
+          authHeaders
         );
 
         dispatch(hideLoadingActionCreator());
@@ -201,7 +204,13 @@ const useProfiles = (): UseProfilesStructure => {
     [dispatch]
   );
 
-  return { loadAllProfiles, editProfile, getProfileById, updateRelationship };
+  return {
+    loadAllProfiles,
+    editProfile,
+    getProfileById,
+    updateRelationship,
+    getProfileAndFriendsById,
+  };
 };
 
 export default useProfiles;
