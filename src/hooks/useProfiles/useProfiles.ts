@@ -201,7 +201,7 @@ const useProfiles = (): UseProfilesStructure => {
         );
       }
     },
-    [dispatch]
+    [authHeaders, dispatch]
   );
 
   return {
