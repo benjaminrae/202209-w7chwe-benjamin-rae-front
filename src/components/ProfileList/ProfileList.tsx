@@ -1,57 +1,27 @@
-import React, { useMemo, useState } from "react";
-import { Relationships } from "../../hooks/useProfiles/types";
+import { ProfileStructure } from "../../redux/features/profilesSlice/types";
 import { useAppSelector } from "../../redux/hooks";
 import ProfileCard from "../ProfileCard/ProfileCard";
 import ProfileListStyled from "./ProifleListStyled";
 
 const ProfileList = () => {
-  const {
-    currentProfile: { enemies, friends },
-    profiles,
-  } = useAppSelector((state) => state.profiles);
+  const { currentProfile, profiles } = useAppSelector(
+    (state) => state.profiles
+  );
 
-  const [filter, setFilter] = useState<Relationships>("removed");
-
-  const profilesToShow = useMemo(() => {
-    if (filter === "friends") {
-      return profiles.filter((profile) =>
-        friends?.find((friend) => friend === profile.id)
-      );
-    }
-
-    if (filter === "enemies") {
-      return profiles.filter((profile) =>
-        enemies?.find((enemy) => enemy === profile.id)
-      );
-    }
-
-    return profiles;
-  }, [enemies, filter, friends, profiles]);
-
-  const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setFilter(event.target.value as Relationships);
-  };
+  const { enemies, friends } = currentProfile as ProfileStructure;
 
   return (
     <ProfileListStyled>
-      <select
-        onChange={handleFilterChange}
-        className="profile-list__filter form__input"
-      >
-        <option value={"removed"}>Show all</option>
-        <option value={"friends"}>Friends</option>
-        <option value={"enemies"}>Enemies</option>
-      </select>
-      <span>{`${profilesToShow.length} profiles found`}</span>
+      <span>{`${profiles.length} profiles found`}</span>
       <ul className="profile-list__list">
-        {profilesToShow.map((profile) => (
+        {profiles.map((profile) => (
           <ProfileCard
-            profile={profile!}
-            key={profile!.id}
+            profile={profile}
+            key={profile.id}
             relationship={
-              friends?.includes(profile!.id)
+              friends?.includes(profile.id)
                 ? "friends"
-                : enemies?.includes(profile!.id)
+                : enemies?.includes(profile.id)
                 ? "enemies"
                 : "removed"
             }

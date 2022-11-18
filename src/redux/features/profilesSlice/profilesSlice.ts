@@ -1,5 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ProfileStructure, ProfilesState } from "./types";
+import {
+  ProfileStructure,
+  ProfilesState,
+  CompleteProfileStructure,
+} from "./types";
 
 const initialProfilesState: ProfilesState = {
   profiles: [],
@@ -22,7 +26,7 @@ const profilesSlice = createSlice({
     }),
     loadCurrentProfile: (
       currentProfilesState,
-      action: PayloadAction<ProfileStructure>
+      action: PayloadAction<ProfileStructure | CompleteProfileStructure>
     ) => ({
       ...currentProfilesState,
       currentProfile: action.payload,
